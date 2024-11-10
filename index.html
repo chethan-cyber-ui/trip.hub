@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Open Sidebar Using Button</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS (Bundle with Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        /* Custom background image for offcanvas */
+        .offcanvas {
+            background-image: url('images/pinterest-pictures-coqzqu0v1eep7znh.jpg'); /* Replace with your image URL */
+            background-size: cover; /* Make sure the background covers the whole offcanvas */
+            background-position: center; /* Center the image */
+            color: white; /* Optional: Change text color for better contrast */
+        }
+        body {
+            background-image: url('images/9d7e385b0995398c5cedde8c65324130.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .seek {
+            margin-top: 100px;
+        }
+        /* Centering the text at the top */
+         /* Centering the text at the top */
+ .big-text {
+    text-align: center; /* Ensure text is centered */
+    font-size: 60px; /* Large text */
+    background-color: rgba(0, 0, 0, 0.5); /* Optional: semi-transparent background */
+    color: #fff; /* White text */
+ }
+        
+        /* Box for the image */
+        .image-box {
+            border: 2px solid #ddd;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            height: 100%;
+        }
+        .image-box img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar with Button to Open Sidebar -->
+    <nav class="navbar bg-dark navbar-dark">
+        <div class="container-fluid">
+            <!-- Button to open the sidebar -->
+            <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar">
+                <img src="images/2145213.png" alt="Logo" style="width:40px;" class="rounded-pill">
+            </button>
+
+            <!-- Offcanvas Sidebar -->
+            <div class="offcanvas offcanvas-start" id="offcanvasSidebar" tabindex="-1" aria-labelledby="offcanvasSidebarLabel">
+                <div class="offcanvas-header">
+                    <h1 class="offcanvas-title" id="offcanvasSidebarLabel">Trip Hub</h1>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <p><h3>For All the occasional event</h3></p>
+                    <div class="container my-5 border">
+                        <button type="button" class="btn" data-bs-toggle="collapse" data-bs-target="#demo"><h2>Updates*</h2></button>
+                        <div id="demo" class="collapse">
+                            <h4>16 November <br> Kishan's birthday</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form class="d-flex">
+                <input class="form-control me-2" type="text" placeholder="Search">
+                <button class="btn btn-primary" type="button">Search</button>
+              </form>
+        </div>
+    </nav>
+
+    <!-- Big Text at the Top -->
+    <div class="big-text border">
+        Trip Hub
+    </div>
+
+    <!-- Main Content Below Title -->
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Left Column for the Form -->
+            <div class="col-md-6 " >
+                <h1>Submit Your Information</h1>
+                <form>
+                    <!-- Name Field -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label"><h5>Name</h5></label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                    </div>
+
+                    <!-- Reason (Optional) Field -->
+                    <div class="mb-3">
+                        <label for="reason" class="form-label">Reason (Optional)</label>
+                        <textarea class="form-control" id="reason" rows="3" placeholder="Enter reason (optional)"></textarea>
+                    </div>
+
+                    <!-- Payment Amount Field -->
+                    <div class="mb-3">
+                        <label for="paymentAmount" class="form-label">Payment Amount</label>
+                        <input type="number" class="form-control" id="paymentAmount" placeholder="Enter payment amount" required min="1" step="any">
+                        <div class="form-text">Please enter a positive amount (e.g., 100.50).</div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+
+            <!-- Right Column for the Image Box -->
+            <div class="col-md-5">
+                <div class="image-box">
+                    <img src="images/b8abee19-67e7-43e0-89ae-a5631ae25d9e.jfif" alt="Image" class="img-fluid"> <!-- Replace with your image -->
+                </div>
+            </div>
+        </div>
+    </div>
+           <!-- Result Display -->
+           <div class="card result-card" id="resultCard" style="display: none;">
+            <h4 class="card-title text-center">Transfer Details</h4>
+            <p><strong>Name:</strong> <span id="resultName"></span></p>
+            <p><strong>Email:</strong> <span id="resultEmail"></span></p>
+            <p><strong>Amount Transferred:</strong> <span id="resultAmount"></span></p>
+        </div>
+
+        <!-- Display Previous Submissions -->
+        <div class="card submission-list" id="submissionList">
+            <h5>Previous Transfers:</h5>
+            <div id="submissionItems">
+                <!-- Previously saved submissions will appear here -->
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="card">
+            <h5>Transfer Progress</h5>
+            <div class="progress">
+                <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1000"></div>
+            </div>
+            <p>Total Transferred: $<span id="totalTransferred">0</span></p>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Bootstrap JS, Popper.js, jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Custom JS -->
+<script>
+// Load previously saved submissions and progress from LocalStorage on page load
+window.onload = function() {
+    displaySavedSubmissions();
+    updateProgressBar();
+};
+
+// Handle the form submission
+document.getElementById('transferForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    // Collect form data
+    const senderName = document.getElementById('senderName').value;
+    const senderEmail = document.getElementById('senderEmail').value;
+    const transferAmount = parseFloat(document.getElementById('transferAmount').value);
+
+    // Save submission to LocalStorage
+    saveSubmission(senderName, senderEmail, transferAmount);
+
+    // Display the result in the result card
+    document.getElementById('resultName').textContent = senderName;
+    document.getElementById('resultEmail').textContent = senderEmail;
+    document.getElementById('resultAmount').textContent = "$" + transferAmount;
+
+    // Show the result card and hide the form card
+    document.getElementById('resultCard').style.display = 'block';
+    document.querySelector('.card').style.display = 'none';
+
+    // Display updated list of previous submissions
+    displaySavedSubmissions();
+
+    // Update the progress bar
+    updateProgressBar();
+});
+
+// Save the submission to LocalStorage
+function saveSubmission(name, email, amount) {
+    // Retrieve existing submissions and total transferred from LocalStorage
+    let submissions = JSON.parse(localStorage.getItem('submissions')) || [];
+    let totalTransferred = parseFloat(localStorage.getItem('totalTransferred')) || 0;
+
+    // Add the new submission to the array
+    const newSubmission = {
+        name: name,
+        email: email,
+        amount: amount
+    };
+    submissions.push(newSubmission);
+
+    // Update the total transferred amount
+    totalTransferred += amount;
+
+    // Save the updated array and total transferred back to LocalStorage
+    localStorage.setItem('submissions', JSON.stringify(submissions));
+    localStorage.setItem('totalTransferred', totalTransferred);
+
+    // Update the displayed total transferred
+    document.getElementById('totalTransferred').textContent = totalTransferred.toFixed(2);
+}
+
+// Display all saved submissions
+function displaySavedSubmissions() {
+    const submissionItemsContainer = document.getElementById('submissionItems');
+    const submissions = JSON.parse(localStorage.getItem('submissions')) || [];
+
+    // Clear the current list
+    submissionItemsContainer.innerHTML = '';
+
+    // Create HTML for each saved submission
+    submissions.forEach(function(submission) {
+        const div = document.createElement('div');
+        div.classList.add('submission-item');
+        div.innerHTML = `
+            <p><strong>Name:</strong> ${submission.name}</p>
+            <p><strong>Email:</strong> ${submission.email}</p>
+            <p><strong>Amount Transferred:</strong> $${submission.amount}</p>
+        `;
+        submissionItemsContainer.appendChild(div);
+    });
+}
+
+// Update the progress bar based on the total transferred
+function updateProgressBar() {
+    const totalTransferred = parseFloat(localStorage.getItem('totalTransferred')) || 0;
+    const maxAmount = 1000; // Max transfer amount (can be customized)
+    const progressPercentage = Math.min((totalTransferred / maxAmount) * 100, 100); // Calculate percentage
+
+    // Update the progress bar
+    const progressBar = document.getElementById('progressBar');
+    progressBar.style.width = progressPercentage + '%';
+    progressBar.setAttribute('aria-valuenow', totalTransferred);
+}
+</script>
+</body>
+</html>
